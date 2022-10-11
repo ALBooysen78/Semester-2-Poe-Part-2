@@ -56,7 +56,10 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="GameEngine.cs" />
+    <Compile Include="Gold.cs" />
     <Compile Include="Hero.cs" />
+    <Compile Include="Item.cs" />
+    <Compile Include="Mage.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Obstacle.cs" />
     <Compile Include="Program.cs" />
