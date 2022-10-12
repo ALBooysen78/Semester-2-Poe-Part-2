@@ -11,11 +11,14 @@ namespace Semester_2_POE_Part_1
         protected int hp;
         protected int maxHp;                    //protected variables followed by public variables
         protected int damage;
+        protected int goldPurse;
 
         public int HP { get { return hp; } set { hp = value; } }
         public int MaxHp { get { return maxHp; } set { maxHp = value; } }
 
         public int Damage { get { return damage; } set { damage = value; } }
+
+        public int GoldPurse { get { return goldPurse; } set { goldPurse = value; } }
 
         protected Tile[] vision = new Tile[4];          //creating the vision variables contructors
         protected tileType tile;                        //tiletype variables and contructors
@@ -115,6 +118,14 @@ namespace Semester_2_POE_Part_1
            
         }
 
+        /*public void Pickup(Item i)
+        {
+            if (i == Item.tileType.Gold)
+            {
+                
+            }
+        }
+        */
 
     }
 }

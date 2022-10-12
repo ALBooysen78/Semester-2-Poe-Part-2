@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Semester_2_POE_Part_1
 {
-    abstract class Item : Tile
+    public abstract class Item : Tile
     {
         public Item(int X, int Y, string symbol) : base(X, Y, symbol)
         {
