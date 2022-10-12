@@ -169,5 +169,17 @@ namespace Semester_2_POE_Part_1
                 }
             }
         }
+
+        public Item GetItemAtPosition(int x, int y)
+        {
+            for (int i = 0; i < items.Length; i++)
+            {
+                if ((items[i].X == x) && (items[i].Y == y))
+                {
+                    return items[i];
+                }
+            }
+            return null;
+        }
     }
 }
