@@ -14,6 +14,7 @@ namespace Semester_2_POE_Part_1
         private Enemy[] enemies;    
         private Hero hero;
         private Random random = new Random();
+        private Item[] items;
 
         public int GetMapHeight()   //getter for the map's height
         {
@@ -126,7 +127,19 @@ namespace Semester_2_POE_Part_1
                 case Tile.tileType.Hero:
                     return new Hero(X, Y, 2, 10, 10, "H");
                 case Tile.tileType.Enemy:
-                    return new SwampCreature(X,Y);
+                    int i = random.Next(0, 2);
+                    if (i == 0)
+                    {
+                        return new SwampCreature(X, Y);
+                    }
+                    else if (i == 1)
+                    {
+                        return new Mage(X,Y);
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 case Tile.tileType.Gold:
                     return null;                //these return null because we have not implemented gold or weapons in the game yet
                 case Tile.tileType.weapon:
