@@ -13,7 +13,7 @@ namespace Semester_2_POE_Part_1
 
         public GameEngine()     //makes new map object
         {
-            gameMap = new Map(5, 17, 5, 13, 5);
+            gameMap = new Map(5, 17, 5, 13, 5,5);
         }
 
         public bool MovePlayer(Character.movement move) //checks if the attapted movement is valid, and if so, moves the hero in that direction and updates vision array for hero and enemies

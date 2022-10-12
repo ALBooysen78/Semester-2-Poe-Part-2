@@ -114,5 +114,7 @@ namespace Semester_2_POE_Part_1
             //This method is to denote whether or not the character is alive or dead. nested to not perma loop it.
            
         }
+
+
     }
 }
