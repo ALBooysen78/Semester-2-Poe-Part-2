@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Semester_2_POE_Part_1
 {
-     abstract class Gold : Item
+      class Gold : Item
     {
         private int goldAmount;
 
@@ -19,7 +19,10 @@ namespace Semester_2_POE_Part_1
 
         public int GoldAmount { get { return goldAmount; } set { goldAmount = value; } }
 
-        public abstract override string ToString();
+        public override string ToString()
+        {
+            return goldAmount.ToString();
+        }
 
         public Gold(int X, int Y,int goldAmount,string symbol) : base(X, Y, symbol)
         {

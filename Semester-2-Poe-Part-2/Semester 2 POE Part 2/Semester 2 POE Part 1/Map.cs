@@ -49,12 +49,13 @@ namespace Semester_2_POE_Part_1
 
         public Hero Heroprop { get { return hero; } set { hero = value; } }     
 
-        public Map(int minHeight, int maxHeight, int minWidth, int maxWidth, int enemyNumber)   //map constructor
+        public Map(int minHeight, int maxHeight, int minWidth, int maxWidth, int enemyNumber, int goldAmount)   //map constructor
         {
             this.mapHeight = random.Next(minHeight,maxHeight);
             this.mapWidth = random.Next(minWidth,maxWidth);
             map = new Tile[mapHeight,mapWidth];
             enemies = new Enemy[enemyNumber];
+            items = new Item[goldAmount];
 
             for (int i = 0; i < mapHeight; i++)     //sets the obstacles around the entire map
             {
@@ -72,6 +73,12 @@ namespace Semester_2_POE_Part_1
             {
                 enemies[i] = (Enemy)Create(Tile.tileType.Enemy);
                 map[enemies[i].X, enemies[i].Y] = enemies[i];
+            }
+
+            for (int i = 0; i < items.Length; i++)
+            {
+                items[i] = (Item)Create(Tile.tileType.Gold);
+                map[items[i].X, items[i].Y] = items[i];
             }
 
             hero = (Hero)Create(Tile.tileType.Hero);    //creates hero object
