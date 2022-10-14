@@ -48,7 +48,7 @@ namespace Semester_2_POE_Part_1
 
         private void attackEnemyButton_Click(object sender, EventArgs e)
         {
-            if(SelectEnemyDropDownList.SelectedIndex == null)
+            if(SelectEnemyDropDownList.SelectedIndex == -1)
             {
                 return; // to catch any errors if nothing in entered
             }
@@ -75,7 +75,7 @@ namespace Semester_2_POE_Part_1
                     EnemyStatsTextbox.Text = "Attack Failed";
                 }
             }
-            catch(IndexOutOfRangeException exception)
+            catch(IndexOutOfRangeException)
             {   //if trying to attack an enemy thats dead
                 EnemyStatsTextbox.Text = "Enemy is unalived";
             }

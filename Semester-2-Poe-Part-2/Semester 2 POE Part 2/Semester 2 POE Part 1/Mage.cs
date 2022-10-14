@@ -64,7 +64,7 @@ namespace Semester_2_POE_Part_1
             return enemyMovementMage;
         }
 
-        public virtual bool CheckRange(Character target)
+        public override bool CheckRange(Character target)
         {
             if (DistanceTo(target) > 1)
             {

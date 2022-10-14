@@ -148,7 +148,7 @@ namespace Semester_2_POE_Part_1
                         return null;
                     }
                 case Tile.tileType.Gold:
-                    return new Gold(X,Y,3,"G");                //these return null because we have not implemented gold or weapons in the game yet
+                    return new Gold(X,Y,"G");                //these return null because we have not implemented gold or weapons in the game yet
                 case Tile.tileType.weapon:
                     return null;                //these return null because we have not implemented gold or weapons in the game yet
                 default:
@@ -176,6 +176,8 @@ namespace Semester_2_POE_Part_1
             {
                 if ((items[i].X == x) && (items[i].Y == y))
                 {
+                    //Item[i]
+
                     return items[i];
                 }
             }

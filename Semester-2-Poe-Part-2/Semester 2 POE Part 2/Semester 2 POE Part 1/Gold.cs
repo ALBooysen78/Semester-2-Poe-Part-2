@@ -13,22 +13,27 @@ namespace Semester_2_POE_Part_1
         private void createGoldAmountRandom()
         {
             Random rnd = new Random();
-            int goldAmount = rnd.Next(0, 6);
+            goldAmount = rnd.Next(0, 6);
             
+        }
+
+        public int GetGoldAmount()
+        {
+            return goldAmount;
         }
 
         public int GoldAmount { get { return goldAmount; } set { goldAmount = value; } }
 
         public override string ToString()
         {
-            return goldAmount.ToString();
+            return "Gold";
         }
 
-        public Gold(int X, int Y,int goldAmount,string symbol) : base(X, Y, symbol)
+        public Gold(int X, int Y,string symbol) : base(X, Y, symbol)
         {
             this.x = X;
             this.y = Y;
-            this.goldAmount = GoldAmount;
+            createGoldAmountRandom();
             this.symbol = "G";
         }
 
