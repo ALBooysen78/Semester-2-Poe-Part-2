@@ -8,7 +8,7 @@ namespace Semester_2_POE_Part_1
 {
      class Mage : Enemy
     {
-        public Mage(int X, int Y) : base(X, Y, 5, 5, 5, "M")
+        public Mage(int X, int Y) : base(X, Y, 5, 5, 5, "M ")
         {
             //Mage constructor
         }

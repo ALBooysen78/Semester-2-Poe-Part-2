@@ -122,7 +122,8 @@ namespace Semester_2_POE_Part_1
         {
             if (i.ToString() == "Gold")
             {
-                
+                Gold g = (Gold)i;
+                GoldPurse += g.GetGoldAmount();
             }
         }
         

@@ -139,16 +139,13 @@ namespace Semester_2_POE_Part_1
                     {
                         return new SwampCreature(X, Y);
                     }
-                    else if (i == 1)
+                    else //if value is not 0, it has to be 1, therefor there is no need to check if it is 1
                     {
                         return new Mage(X,Y);
                     }
-                    else
-                    {
-                        return null;
-                    }
+
                 case Tile.tileType.Gold:
-                    return new Gold(X,Y,"G");                //these return null because we have not implemented gold or weapons in the game yet
+                    return new Gold(X,Y,"G");                //these return null because we have not implemented gold or weapons in the game yet                    
                 case Tile.tileType.weapon:
                     return null;                //these return null because we have not implemented gold or weapons in the game yet
                 default:
@@ -174,11 +171,15 @@ namespace Semester_2_POE_Part_1
         {
             for (int i = 0; i < items.Length; i++)
             {
-                if ((items[i].X == x) && (items[i].Y == y))
+                if (items[i] != null)
                 {
-                    //Item[i]
+                    if ((items[i].X == x) && (items[i].Y == y))
+                    {
+                        Item j = items[i];
+                        items[i] = null;
+                        return j;
 
-                    return items[i];
+                    }
                 }
             }
             return null;

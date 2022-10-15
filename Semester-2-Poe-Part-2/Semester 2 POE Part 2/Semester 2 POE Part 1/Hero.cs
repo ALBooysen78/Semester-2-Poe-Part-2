@@ -19,7 +19,8 @@ namespace Semester_2_POE_Part_1
             string heroInfo = "The heros stats: \n";
             heroInfo += "Hp: " + HP.ToString() +"/"+ maxHp.ToString() + "\n";
             heroInfo += "Damage is: " + Damage.ToString() + "\n";                       // heros to string
-            heroInfo += "Coordinates: [" + X.ToString() + "," + Y.ToString() + "]";
+            heroInfo += "Coordinates: [" + X.ToString() + "," + Y.ToString() + "]\n";
+            heroInfo += "Gold: " + goldPurse.ToString() + "\n";
 
             return heroInfo;
         }

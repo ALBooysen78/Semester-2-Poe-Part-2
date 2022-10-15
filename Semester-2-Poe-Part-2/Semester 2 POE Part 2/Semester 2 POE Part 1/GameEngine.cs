@@ -23,10 +23,17 @@ namespace Semester_2_POE_Part_1
             Character.movement dir = gameMap.Heroprop.ReturnMove(move);
             if (dir == move)
             {
+                
                 gameMap.GetMap()[gameMap.Heroprop.X, gameMap.Heroprop.Y] = new EmptyTile(gameMap.Heroprop.X, gameMap.Heroprop.Y, " . ");    //replace the hero's current poition on the map with an empty tile
                 gameMap.Heroprop.Move(move);    //move hero
+                if(gameMap.GetMap()[gameMap.Heroprop.X, gameMap.Heroprop.Y].Symbol == "G ")
+                {
+                    Item i = gameMap.GetItemAtPosition(gameMap.Heroprop.X, gameMap.Heroprop.Y);
+                    gameMap.Heroprop.Pickup(i);
+                }
                 gameMap.GetMap()[gameMap.Heroprop.X, gameMap.Heroprop.Y] = gameMap.Heroprop;    //replace the empty tile on the map with new hero position
                 gameMap.UpdateVision(gameMap.Heroprop);
+
 
                 for (int i = 0; i < gameMap.GetEnemies().Length; i++)
                 {

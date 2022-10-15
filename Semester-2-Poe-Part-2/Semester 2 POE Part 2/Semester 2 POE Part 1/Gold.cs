@@ -6,17 +6,11 @@ using System.Threading.Tasks;
 
 namespace Semester_2_POE_Part_1
 {
-      class Gold : Item
+    class Gold : Item
     {
         private int goldAmount;
-
-        private void createGoldAmountRandom()
-        {
-            Random rnd = new Random();
-            goldAmount = rnd.Next(0, 6);
-            
-        }
-
+        private static Random rnd = new Random();
+        
         public int GetGoldAmount()
         {
             return goldAmount;
@@ -29,12 +23,12 @@ namespace Semester_2_POE_Part_1
             return "Gold";
         }
 
-        public Gold(int X, int Y,string symbol) : base(X, Y, symbol)
+        public Gold(int X, int Y,string symbol) : base(X, Y, "G ")
         {
             this.x = X;
             this.y = Y;
-            createGoldAmountRandom();
-            this.symbol = "G";
+            goldAmount = rnd.Next(1, 6);
+            this.symbol = "G ";
         }
 
     }
