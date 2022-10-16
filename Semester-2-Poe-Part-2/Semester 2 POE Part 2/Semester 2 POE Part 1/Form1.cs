@@ -174,32 +174,29 @@ namespace Semester_2_POE_Part_1
         private void RemoveEnemies()                        //check if enemies are dead, if they are dead create a new array without the dead ones
                                                             //set enemies method to overwrite the eneimes array + update combobox
         {
-            int tmp = -1;
+            int tmp = 0;
 
             for (int i = 0; i < engine.getMap().GetEnemies().Length; i++)
             {
                 if (engine.getMap().GetEnemies()[i].isDead() == true)
                 {
-                    tmp = i;
+                    tmp++;
                 }
             }
 
-            if (tmp != -1)
+            if (tmp != 0)
             {
-                Enemy[] noDeadEnemies = new Enemy[engine.getMap().GetEnemies().Length - 1];
+               
+                Enemy[] noDeadEnemies = new Enemy[engine.getMap().GetEnemies().Length - tmp];
                 int j = 0;
-                bool tempbool = true;
                 for (int i = 0; i < engine.getMap().GetEnemies().Length; i++)
                 {
                     //add all elements into new array except the dead one
-                    if (j == tmp && tempbool == true)
+                    if(engine.getMap().GetEnemies()[i].isDead() == false)
                     {
-                        tempbool = false;
-
-                        continue;
+                        noDeadEnemies[j] = engine.getMap().GetEnemies()[i];
+                        j++;
                     }
-                    noDeadEnemies[j] = engine.getMap().GetEnemies()[i];
-                    j++;
                 }
 
                 engine.getMap().SetEnemies(noDeadEnemies); //update the array to be the living enemies

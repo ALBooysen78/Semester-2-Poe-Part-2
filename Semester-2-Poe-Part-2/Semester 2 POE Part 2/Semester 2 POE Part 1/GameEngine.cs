@@ -13,7 +13,7 @@ namespace Semester_2_POE_Part_1
 
         public GameEngine()     //makes new map object
         {
-            gameMap = new Map(10, 17, 10, 13, 5,5);
+            gameMap = new Map(5, 5, 5, 5, 5,0);
         }
 
         public bool MovePlayer(Character.movement move) //checks if the attapted movement is valid, and if so, moves the hero in that direction and updates vision array for hero and enemies
@@ -82,6 +82,10 @@ namespace Semester_2_POE_Part_1
         { 
             foreach (var enemy in gameMap.GetEnemies())
             {
+                if (enemy.isDead() == true)
+                {
+                    continue;
+                }
                 if (enemy is SwampCreature)
                 {
                     for(int i = 0; i < enemy.VISION.Length; i++)
