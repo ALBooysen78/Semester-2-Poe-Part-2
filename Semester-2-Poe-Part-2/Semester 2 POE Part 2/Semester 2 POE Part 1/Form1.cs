@@ -85,6 +85,7 @@ namespace Semester_2_POE_Part_1
             engine.EnemyAttacks();
             RemoveEnemies();
             EnemyDropdown();
+            DisplayMap();
 
         }
 
