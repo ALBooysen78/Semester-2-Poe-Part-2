@@ -13,6 +13,7 @@ namespace Semester_2_POE_Part_1
     public partial class Form1 : Form
     {
         GameEngine engine;  //declarations
+        
         public Form1()
         {
             InitializeComponent();
@@ -67,8 +68,7 @@ namespace Semester_2_POE_Part_1
                         engine.getMap().UpdateVision(engine.getMap().Heroprop);
                         EnemyStatsTextbox.Text += "\nEnemy was killed";
                     }
-                    //check if enemies are dead, if they are dead create a new array without the dead ones
-                    //set enemies method to overwrite the eneimes array + update combobox
+
                 }
                 else
                 {   // if no enemy is in range
@@ -80,50 +80,10 @@ namespace Semester_2_POE_Part_1
                 EnemyStatsTextbox.Text = "Enemy is unalived";
             }
             
-            //the code beneath here is to remove enemies from the current enemy array and drop down menu array if they die
-            int tmp = -1;
 
-            for (int i = 0; i < engine.getMap().GetEnemies().Length; i++)
-            {
-                if (engine.getMap().GetEnemies()[i].isDead() == true)
-                {
-                    tmp = i;
-                }
-            }
-
-            if(tmp != -1)
-            {
-                Enemy[] noDeadEnemies = new Enemy[engine.getMap().GetEnemies().Length -1 ];
-                int j = 0;
-                bool tempbool = true;
-                for(int i = 0; i < engine.getMap().GetEnemies().Length; i++)
-                {
-                    //add all elements into new array except the dead one
-                    if(j == tmp && tempbool == true)
-                    {
-                        tempbool = false;
-                        
-                        continue;
-                    }
-                    noDeadEnemies[j] = engine.getMap().GetEnemies()[i];
-                    j++;
-                }
-
-                engine.getMap().SetEnemies(noDeadEnemies); //update the array to be the living enemies
-
-                string[] entires = new string[engine.getMap().GetEnemies().Length]; //drop down menu entries
-
-                SelectEnemyDropDownList.Items.Clear();
-
-                for (int i = 0; i < entires.Length; i++)
-                {
-                    entires[i] = engine.getMap().GetEnemies()[i].ToString();
-                    SelectEnemyDropDownList.Items.Add(entires[i]);
-                }
-
-            }
-            //the code above here is to remove enemies from the current enemy array and drop down menu array if they die
+            RemoveEnemies();
             engine.EnemyAttacks();
+            RemoveEnemies();
             EnemyDropdown();
 
         }
@@ -131,6 +91,7 @@ namespace Semester_2_POE_Part_1
         private void SelectEnemy_SelectedIndexChanged(object sender, EventArgs e)
         {
             EnemyStatsTextbox.Text = engine.getMap().GetEnemies()[SelectEnemyDropDownList.SelectedIndex].ToString();
+
             //add iteams to the iteam array
             //update ++ update on attack
             //if (SelectEnemyDropDownList.Text == "Swamp Creature")
@@ -161,6 +122,8 @@ namespace Semester_2_POE_Part_1
             engine.MovePlayer(Character.movement.up);
             engine.MoveEnemies();
             engine.EnemyAttacks();
+            RemoveEnemies();
+            //CheckEnemyStatus();
             DisplayMap();
             EnemyDropdown();
 
@@ -171,6 +134,8 @@ namespace Semester_2_POE_Part_1
             engine.MovePlayer(Character.movement.down);
             engine.MoveEnemies();
             engine.EnemyAttacks();
+            RemoveEnemies();
+            //CheckEnemyStatus();
             DisplayMap();
             EnemyDropdown();
         }
@@ -180,6 +145,8 @@ namespace Semester_2_POE_Part_1
             engine.MovePlayer(Character.movement.right);
             engine.MoveEnemies();
             engine.EnemyAttacks();
+            RemoveEnemies();
+            //CheckEnemyStatus();
             DisplayMap();
             EnemyDropdown();
         }
@@ -188,6 +155,8 @@ namespace Semester_2_POE_Part_1
             engine.MovePlayer(Character.movement.left);
             engine.MoveEnemies();
             engine.EnemyAttacks();
+            RemoveEnemies();
+            //CheckEnemyStatus();
             DisplayMap();
             EnemyDropdown();
         }
@@ -201,5 +170,52 @@ namespace Semester_2_POE_Part_1
             }
 
         }
+
+        private void RemoveEnemies()                        //check if enemies are dead, if they are dead create a new array without the dead ones
+                                                            //set enemies method to overwrite the eneimes array + update combobox
+        {
+            int tmp = -1;
+
+            for (int i = 0; i < engine.getMap().GetEnemies().Length; i++)
+            {
+                if (engine.getMap().GetEnemies()[i].isDead() == true)
+                {
+                    tmp = i;
+                }
+            }
+
+            if (tmp != -1)
+            {
+                Enemy[] noDeadEnemies = new Enemy[engine.getMap().GetEnemies().Length - 1];
+                int j = 0;
+                bool tempbool = true;
+                for (int i = 0; i < engine.getMap().GetEnemies().Length; i++)
+                {
+                    //add all elements into new array except the dead one
+                    if (j == tmp && tempbool == true)
+                    {
+                        tempbool = false;
+
+                        continue;
+                    }
+                    noDeadEnemies[j] = engine.getMap().GetEnemies()[i];
+                    j++;
+                }
+
+                engine.getMap().SetEnemies(noDeadEnemies); //update the array to be the living enemies
+
+                string[] entires = new string[engine.getMap().GetEnemies().Length]; //drop down menu entries
+
+                SelectEnemyDropDownList.Items.Clear();
+
+                for (int i = 0; i < entires.Length; i++)
+                {
+                    entires[i] = engine.getMap().GetEnemies()[i].ToString();
+                    SelectEnemyDropDownList.Items.Add(entires[i]);
+                }
+
+            }
+        }
+
     }
 }

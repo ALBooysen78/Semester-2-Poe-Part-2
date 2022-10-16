@@ -100,6 +100,13 @@ namespace Semester_2_POE_Part_1
                         if (enemy.CheckRange(gameMap.GetEnemies()[i]))
                         {
                             enemy.Attack(gameMap.GetEnemies()[i]);
+                            
+                            if (gameMap.GetEnemies()[i].isDead() == true)
+                            {
+                                gameMap.GetMap()[gameMap.GetEnemies()[i].X, gameMap.GetEnemies()[i].Y] = new EmptyTile(gameMap.GetEnemies()[i].X, gameMap.GetEnemies()[i].Y, ". ");
+                                
+                            }
+                            
                         }
                     }
 
