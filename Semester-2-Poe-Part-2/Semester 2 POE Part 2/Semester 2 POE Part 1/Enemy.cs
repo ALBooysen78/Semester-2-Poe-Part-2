@@ -14,7 +14,7 @@ namespace Semester_2_POE_Part_1
         }
 
         protected Random random = new Random();
-        protected Enemy(int X, int Y, int DAMAGE, int HP, int MaxHP, string symbol) : base(X,Y, HP, MaxHP, DAMAGE, symbol)
+        protected Enemy(int X, int Y, int DAMAGE, int HP, int MaxHP, string symbol) : base(X,Y, DAMAGE, HP, MaxHP, symbol)
         {
             //enemy constructor
         }
@@ -25,7 +25,6 @@ namespace Semester_2_POE_Part_1
             string enemyInfo = "The " + symbol; //need to add enemy name
             enemyInfo += $" at [{X.ToString()} {Y.ToString()}]";
             enemyInfo += " is at " + hp.ToString() + "HP";
-            enemyInfo += " and was dealt 2 damage";
 
             return enemyInfo;
         }

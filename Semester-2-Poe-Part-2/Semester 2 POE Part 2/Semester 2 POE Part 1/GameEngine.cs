@@ -13,7 +13,7 @@ namespace Semester_2_POE_Part_1
 
         public GameEngine()     //makes new map object
         {
-            gameMap = new Map(5, 17, 5, 13, 5,5);
+            gameMap = new Map(10, 17, 10, 13, 5,5);
         }
 
         public bool MovePlayer(Character.movement move) //checks if the attapted movement is valid, and if so, moves the hero in that direction and updates vision array for hero and enemies
@@ -48,5 +48,68 @@ namespace Semester_2_POE_Part_1
 
             
         }
+
+        public void MoveEnemies()
+        {
+
+
+            foreach (var enemy in gameMap.GetEnemies())
+            {           
+                Character.movement move = (Character.movement)enemy.ReturnMove(Character.movement.NoMovement);  //Since the ReturnMove method requires a parameter, no movement is passed in as a placeholder. This value is changed in the swamp creature class when a random movement is calculated
+                           
+                gameMap.GetMap()[enemy.X, enemy.Y] = new EmptyTile(enemy.X, enemy.Y, " . ");    //replace the enemy's current poition on the map with an empty tile
+                enemy.Move(move);    //move enemy
+                if (gameMap.GetMap()[enemy.X, enemy.Y].Symbol == "G ")
+                {
+                    Item i = gameMap.GetItemAtPosition(enemy.X, enemy.Y);
+                    enemy.Pickup(i);
+                }
+                gameMap.GetMap()[enemy.X, enemy.Y] = enemy;    //replace the empty tile on the map with new enemy position
+                gameMap.UpdateVision(gameMap.Heroprop);
+
+
+                for (int i = 0; i < gameMap.GetEnemies().Length; i++)
+                {
+                    gameMap.UpdateVision(gameMap.GetEnemies()[i]);
+                }
+                    
+                
+                
+            }
+        }
+
+        public void EnemyAttacks()
+        { 
+            foreach (var enemy in gameMap.GetEnemies())
+            {
+                if (enemy is SwampCreature)
+                {
+                    for(int i = 0; i < enemy.VISION.Length; i++)
+                    {
+                        if (enemy.VISION[i] is Hero)
+                        {
+                            enemy.Attack(gameMap.Heroprop);
+                            break;
+                        }
+                    }
+                }
+                else if (enemy is Mage)
+                {
+                    for (int i = 0; i < gameMap.GetEnemies().Length; i++)
+                    {
+                        if (enemy.CheckRange(gameMap.GetEnemies()[i]))
+                        {
+                            enemy.Attack(gameMap.GetEnemies()[i]);
+                        }
+                    }
+
+                    if (enemy.CheckRange(gameMap.Heroprop))
+                    {
+                        enemy.Attack(gameMap.Heroprop);
+                    }
+                }
+            }
+        }
+
     }
 }

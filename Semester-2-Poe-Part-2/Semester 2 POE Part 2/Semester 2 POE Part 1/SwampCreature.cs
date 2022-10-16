@@ -8,61 +8,66 @@ namespace Semester_2_POE_Part_1
 {
     class SwampCreature : Enemy
     {
+        private static Random rndm = new Random();
         public SwampCreature(int X, int Y) : base(X, Y, 1, 10, 10, "SC")
         {
             //swamp creature constructor
         }
         public override movement ReturnMove(movement enemyMovementSwampCreature)
         {   //creating random enemy movement
-            Random rnd = new Random();
-            int randomEnemyMovementDirection = rnd.Next(5);
 
-            switch (randomEnemyMovementDirection)   //allowing enemies to move if they are unobstructed
+            do
             {
-                case 0:
-                    if ((this.VISION[0] is Obstacle) || (this.VISION[0] is Hero))            // !Hero and !Obstacle do not work
-                    {
-                        //how do I make it loop?
-                        break;
-                    }
-                    else { enemyMovementSwampCreature = movement.up; }
-                    break;
-                case 1:
-                    if ((this.VISION[1] is Obstacle) || (this.VISION[1] is Hero))            // !Hero and !Obstacle do not work
-                    {
-                        break;
-                    }
-                    else { enemyMovementSwampCreature = movement.down; }
+                int randomVal;
+                randomVal = rndm.Next(1, 5);
+                enemyMovementSwampCreature = (Character.movement)randomVal;
 
-                    break;
-                case 2:
-                    if ((this.VISION[2] is Obstacle) || (this.VISION[2] is Hero))            // !Hero and !Obstacle do not work
+                if (enemyMovementSwampCreature == movement.right)
+                {
+                    if (!(this.VISION[3] is Enemy) && !(this.VISION[3] is Hero) && !(this.VISION[3] is Obstacle))
                     {
-                        break;
+                        enemyMovementSwampCreature = movement.right;
                     }
-                    else { enemyMovementSwampCreature = movement.left; }
-
-                    break;
-                case 3:
-                    if ((this.VISION[3] is Obstacle) || (this.VISION[3] is Hero))            // !Hero and !Obstacle do not work
+                    else enemyMovementSwampCreature = movement.NoMovement;
+                }
+                else if (enemyMovementSwampCreature == movement.left)
+                {
+                    if (!(this.VISION[2] is Enemy) && !(this.VISION[2] is Hero) && !(this.VISION[2] is Obstacle))
                     {
-                        break;
+                        enemyMovementSwampCreature = movement.left;
                     }
-                    else { enemyMovementSwampCreature = movement.right; }
+                    else enemyMovementSwampCreature = movement.NoMovement;
 
-                    break;
-                case 4:
-                    if ((this.VISION[4] is Obstacle) || (this.VISION[4] is Hero))            // !Hero and !Obstacle do not work
+                }
+                else if (enemyMovementSwampCreature == movement.up)
+                {
+                    if (!(this.VISION[0] is Enemy) && !(this.VISION[0] is Hero) && !(this.VISION[0] is Obstacle))
                     {
-                        break;
+                        enemyMovementSwampCreature = movement.up;
                     }
-                    else { enemyMovementSwampCreature = movement.NoMovement; }
+                    else enemyMovementSwampCreature = movement.NoMovement;
 
-                    break;
-            }
+                }
+                else if (enemyMovementSwampCreature == movement.down)
+                {
+                    if (!(this.VISION[1] is Enemy) && !(this.VISION[1] is Hero) && !(this.VISION[1] is Obstacle))
+                    {
+                        enemyMovementSwampCreature = movement.down;
+                    }
+                    else enemyMovementSwampCreature = movement.NoMovement;
+
+                }
+                else if (enemyMovementSwampCreature == movement.NoMovement)
+                {
+                    enemyMovementSwampCreature = movement.NoMovement;
+                }
+
+                
+            } while (enemyMovementSwampCreature == movement.NoMovement);
+            
+
             return enemyMovementSwampCreature;
         }
-
-
     }
+    
 }

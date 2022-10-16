@@ -27,7 +27,7 @@ namespace Semester_2_POE_Part_1
             engine.getMap().GetEnemies();
 
             string[] entires = new string[engine.getMap().GetEnemies().Length]; //getting string array of eneimes on form load
-
+            
             for (int i = 0; i < entires.Length; i++) //drop down menu entries
             {
                 entires[i] = engine.getMap().GetEnemies()[i].ToString();
@@ -36,13 +36,13 @@ namespace Semester_2_POE_Part_1
 
 
 
-
         }
 
         private void EnemyStatsTextbox_TextChanged(object sender, EventArgs e)
         {
+            
             //EnemyStatsTextbox.Text += "/n";
-            //EnemyStatsTextbox.Text += Enemy.ToString(enemyInfo);
+            //EnemyStatsTextbox.Text += engine.getMap().GetEnemies()[SelectEnemyDropDownList.SelectedIndex].ToString();
             
         }
 
@@ -72,7 +72,7 @@ namespace Semester_2_POE_Part_1
                 }
                 else
                 {   // if no enemy is in range
-                    EnemyStatsTextbox.Text = "Attack Failed";
+                    EnemyStatsTextbox.Text = "Attack Failed, enemy not in range";
                 }
             }
             catch(IndexOutOfRangeException)
@@ -123,17 +123,19 @@ namespace Semester_2_POE_Part_1
 
             }
             //the code above here is to remove enemies from the current enemy array and drop down menu array if they die
-
+            engine.EnemyAttacks();
+            EnemyDropdown();
 
         }
 
         private void SelectEnemy_SelectedIndexChanged(object sender, EventArgs e)
         {
+            EnemyStatsTextbox.Text = engine.getMap().GetEnemies()[SelectEnemyDropDownList.SelectedIndex].ToString();
             //add iteams to the iteam array
             //update ++ update on attack
             //if (SelectEnemyDropDownList.Text == "Swamp Creature")
             //{
-                //idk man f this
+            //idk man f this
             //}
         }
 
@@ -157,29 +159,47 @@ namespace Semester_2_POE_Part_1
         private void upButton_Click(object sender, EventArgs e) //moves hero up 
         {
             engine.MovePlayer(Character.movement.up);
-            engine.getMap().MapFill();
+            engine.MoveEnemies();
+            engine.EnemyAttacks();
             DisplayMap();
+            EnemyDropdown();
+
         }
 
         private void downButton_Click(object sender, EventArgs e)   //moves hero down
         {
             engine.MovePlayer(Character.movement.down);
-            engine.getMap().MapFill();      
-                                               
+            engine.MoveEnemies();
+            engine.EnemyAttacks();
             DisplayMap();
+            EnemyDropdown();
         }
 
         private void rightButton_Click(object sender, EventArgs e)  //moves hero right
         {
             engine.MovePlayer(Character.movement.right);
-            engine.getMap().MapFill();
+            engine.MoveEnemies();
+            engine.EnemyAttacks();
             DisplayMap();
+            EnemyDropdown();
         }
         private void leftButton_Click(object sender, EventArgs e)   //moves hero left
         {
             engine.MovePlayer(Character.movement.left);
-            engine.getMap().MapFill();
+            engine.MoveEnemies();
+            engine.EnemyAttacks();
             DisplayMap();
+            EnemyDropdown();
+        }
+
+        private void EnemyDropdown()
+        {
+           
+            for (int i = 0; i < SelectEnemyDropDownList.Items.Count; i++) //drop down menu entries
+            {
+                SelectEnemyDropDownList.Items[i] = engine.getMap().GetEnemies()[i].ToString();
+            }
+
         }
     }
 }
