@@ -215,5 +215,14 @@ namespace Semester_2_POE_Part_1
             }
         }
 
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void loadButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
