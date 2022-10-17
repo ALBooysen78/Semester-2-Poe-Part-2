@@ -81,9 +81,9 @@ namespace Semester_2_POE_Part_1
             }
             
 
-            RemoveEnemies();
-            engine.EnemyAttacks();
-            RemoveEnemies();
+            RemoveEnemies();    //remove dead enemies from enemy array
+            engine.EnemyAttacks();      //enies attack after player does
+            RemoveEnemies();      
             EnemyDropdown();
             DisplayMap();
 

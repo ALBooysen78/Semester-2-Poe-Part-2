@@ -203,36 +203,36 @@ namespace Semester_2_POE_Part_1
                         }
                         break;
                     case "Hero":
-                        Hero hero = new Hero(xPos, yPos,2, hp, maxHp, "H ") { GoldPurse = gold };
+                        Hero hero = new Hero(xPos, yPos,2, hp, maxHp, "H ") { GoldPurse = gold };   //makes a new hero from the savefile data
                         gameMap.Heroprop = hero;
-                        gameMap.Mapprop[xPos, yPos] = hero;
+                        gameMap.Mapprop[xPos, yPos] = hero;     //places new hero on the map
                         break;
                     case "Mage":
-                        for (int i = 0; i < gameMap.GetEnemies().Length; i++)
+                        for (int i = 0; i < gameMap.GetEnemies().Length; i++)   //loops through enemies array and adds a new mage from the savefile data if there is an open space in the enemy array
                         {
-                            if (gameMap.GetEnemies()[i] is null)
+                            if (gameMap.GetEnemies()[i] is null)    
                             {
                                 Mage mage = new Mage(xPos, yPos,5, hp, 5, "M ") { GoldPurse = gold };
                                 gameMap.GetEnemies()[i] = mage;
-                                gameMap.Mapprop[xPos, yPos] = mage;
+                                gameMap.Mapprop[xPos, yPos] = mage;     //places new mage on the map
                                 break;
                             }
                         }
                         break;
                     case "Swamp Creature":
-                        for (int i = 0; i < gameMap.GetEnemies().Length; i++)
+                        for (int i = 0; i < gameMap.GetEnemies().Length; i++)       //loops through enemies array and adds a swampcreature from the savefile data to an open space in the enemy array
                         {
                             if (gameMap.GetEnemies()[i] is null)
                             {
                                 SwampCreature swampCreature = new SwampCreature(xPos, yPos, 1, hp, 10, "SC") {  GoldPurse = gold };
                                 gameMap.GetEnemies()[i] = swampCreature;
-                                gameMap.Mapprop[xPos, yPos] = swampCreature;
+                                gameMap.Mapprop[xPos, yPos] = swampCreature;    //places new swampcreature on the map
                                 break;
                             }
                         }
                         break;
-                    case "Gold":
-                        Gold _gold = new Gold(xPos, yPos, "G ") { GoldAmount = gold };
+                    case "Gold":        
+                        Gold _gold = new Gold(xPos, yPos, "G ") { GoldAmount = gold };      //creates gold from the savefile data and adds it to an open space in the item array
                         for (int i = 0; i < gameMap.Items.Length; i++)
                         {
                             if (gameMap.Items[i] is null)
@@ -241,16 +241,16 @@ namespace Semester_2_POE_Part_1
                                 break;
                             }
                         }
-                        gameMap.Mapprop[xPos, yPos] = _gold;
+                        gameMap.Mapprop[xPos, yPos] = _gold;    //places new gold on the map
                         break;
                     default:
                         break;
                 }
             }
 
-            for(int i = 0; i < gameMap.GetEnemies().Length; i++)
+            for(int i = 0; i < gameMap.GetEnemies().Length; i++)    //loop to check if there are any null values in the enemies array 
             {
-                if (gameMap.GetEnemies()[i] == null)
+                if (gameMap.GetEnemies()[i] == null)        //if there is a null value, creates a new array that is sorter and sets the enemy array to the new one
                 {
                     Enemy[] aliveEnemies = new Enemy[i];
 
@@ -265,12 +265,12 @@ namespace Semester_2_POE_Part_1
                 }
             }
 
-            for (int i = 0; i < gameMap.GetEnemies().Length; i++)
+            for (int i = 0; i < gameMap.GetEnemies().Length; i++)       //updates vision of all enemies
             {
                 gameMap.UpdateVision(gameMap.GetEnemies()[i]);
             }
 
-            gameMap.UpdateVision(gameMap.Heroprop);
+            gameMap.UpdateVision(gameMap.Heroprop);     //updates vision for hero
         }
 
 
