@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace Semester_2_POE_Part_1
 {
@@ -122,5 +125,45 @@ namespace Semester_2_POE_Part_1
             }
         }
 
-    }
+         public static void SaveGame(string filepath)
+        {
+            if (filepath(File.Exists))
+            {
+                filepath(File.Delete);
+            }
+
+
+            using (var saveGame = new FileStream(filepath, FileMode.Create))
+            {
+                var xml = new XmlSerializer(typeof(Map));
+                xml.Serialize(saveGame, map);
+            }
+            //@"C:\Users\newuser\Desktop\Savegame.save"
+
+
+
+            //FileStream saveGame = new FileStream(@"C:\Users\newuser\Desktop\Savegame.save", FileMode.Create, FileAccess.Write);
+            //BinaryWriter bw = new BinaryWriter(saveGame);
+            //bw.Write(0); //input what needs to be put into binary
+            //need to input the variables of the map, and positions of the tiles.
+            //bw.Close();
+            //saveGame.Close();
+        }
+
+       public static void LoadGame()
+        {
+            FileStream loadGamee = new FileStream(@"C:\Users\newuser\Desktop\Savegame.save", FileMode.Open, FileAccess.Read);
+            BinaryReader br = new BinaryReader(loadGamee);
+
+            br.Read(); //outputs the code from the binary file
+            br.Close();
+            loadGamee.Close();
+        }
+
+
+
+
+
+
+    }//class
 }
