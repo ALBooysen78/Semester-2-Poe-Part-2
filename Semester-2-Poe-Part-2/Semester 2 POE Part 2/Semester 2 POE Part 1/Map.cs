@@ -62,6 +62,7 @@ namespace Semester_2_POE_Part_1
         }
 
         public Hero Heroprop { get { return hero; } set { hero = value; } }     
+        public Item[] Items { get { return items} set { items = value; } }
 
         public Map(int minHeight, int maxHeight, int minWidth, int maxWidth, int enemyNumber, int goldAmount)   //map constructor
         {
