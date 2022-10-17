@@ -12,6 +12,10 @@ namespace Semester_2_POE_Part_1
         {
             //Mage constructor
         }
+        public Mage(int X, int Y, int DAMAGE, int HP, int MaxHP, string symbol) : base(X, Y, 5, HP, 5, "M ")
+        {
+            //Mage constructor
+        }
 
         public override movement ReturnMove(movement enemyMovementMage)
         {

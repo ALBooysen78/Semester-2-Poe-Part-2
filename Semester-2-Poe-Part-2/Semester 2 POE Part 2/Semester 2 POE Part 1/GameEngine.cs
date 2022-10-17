@@ -26,14 +26,14 @@ namespace Semester_2_POE_Part_1
             if (dir == move)
             {
                 
-                gameMap.GetMap()[gameMap.Heroprop.X, gameMap.Heroprop.Y] = new EmptyTile(gameMap.Heroprop.X, gameMap.Heroprop.Y, " . ");    //replace the hero's current poition on the map with an empty tile
+                gameMap.Mapprop[gameMap.Heroprop.X, gameMap.Heroprop.Y] = new EmptyTile(gameMap.Heroprop.X, gameMap.Heroprop.Y, " . ");    //replace the hero's current poition on the map with an empty tile
                 gameMap.Heroprop.Move(move);    //move hero
-                if(gameMap.GetMap()[gameMap.Heroprop.X, gameMap.Heroprop.Y].Symbol == "G ") //allows the hero to pickup gold
+                if(gameMap.Mapprop[gameMap.Heroprop.X, gameMap.Heroprop.Y].Symbol == "G ") //allows the hero to pickup gold
                 {
                     Item i = gameMap.GetItemAtPosition(gameMap.Heroprop.X, gameMap.Heroprop.Y);
                     gameMap.Heroprop.Pickup(i);
                 }
-                gameMap.GetMap()[gameMap.Heroprop.X, gameMap.Heroprop.Y] = gameMap.Heroprop;    //replace the empty tile on the map with new hero position
+                gameMap.Mapprop[gameMap.Heroprop.X, gameMap.Heroprop.Y] = gameMap.Heroprop;    //replace the empty tile on the map with new hero position
                 gameMap.UpdateVision(gameMap.Heroprop);
 
 
@@ -59,14 +59,14 @@ namespace Semester_2_POE_Part_1
             {           
                 Character.movement move = (Character.movement)enemy.ReturnMove(Character.movement.NoMovement);  //Since the ReturnMove method requires a parameter, no movement is passed in as a placeholder. This value is changed in the swamp creature class when a random movement is calculated
                            
-                gameMap.GetMap()[enemy.X, enemy.Y] = new EmptyTile(enemy.X, enemy.Y, " . ");    //replace the enemy's current poition on the map with an empty tile
+                gameMap.Mapprop[enemy.X, enemy.Y] = new EmptyTile(enemy.X, enemy.Y, " . ");    //replace the enemy's current poition on the map with an empty tile
                 enemy.Move(move);    //move enemy
-                if (gameMap.GetMap()[enemy.X, enemy.Y].Symbol == "G ")  
+                if (gameMap.Mapprop[enemy.X, enemy.Y].Symbol == "G ")  
                 {
                     Item i = gameMap.GetItemAtPosition(enemy.X, enemy.Y);
                     enemy.Pickup(i);
                 }
-                gameMap.GetMap()[enemy.X, enemy.Y] = enemy;    //replace the empty tile on the map with new enemy position
+                gameMap.Mapprop[enemy.X, enemy.Y] = enemy;    //replace the empty tile on the map with new enemy position
                 gameMap.UpdateVision(gameMap.Heroprop);
 
 
@@ -109,7 +109,7 @@ namespace Semester_2_POE_Part_1
                             
                             if (gameMap.GetEnemies()[i].isDead() == true)
                             {
-                                gameMap.GetMap()[gameMap.GetEnemies()[i].X, gameMap.GetEnemies()[i].Y] = new EmptyTile(gameMap.GetEnemies()[i].X, gameMap.GetEnemies()[i].Y, ". ");     //removes dead enemies from the map 
+                                gameMap.Mapprop[gameMap.GetEnemies()[i].X, gameMap.GetEnemies()[i].Y] = new EmptyTile(gameMap.GetEnemies()[i].X, gameMap.GetEnemies()[i].Y, ". ");     //removes dead enemies from the map 
                                 
                             }
                             
@@ -124,12 +124,12 @@ namespace Semester_2_POE_Part_1
             }
         }
 
-         public void SaveGame(string filepath)
+        public void SaveGame()
         {
-            DataSet dataSet = new DataSet();
+            DataSet dataSet = new DataSet();                //make new dataset and datatable
             DataTable dataTable = new DataTable();
 
-            dataSet.Tables.Add(dataTable);
+            dataSet.Tables.Add(dataTable);                  //add columns to the datatable which stores relevant information
 
             dataTable.Columns.Add(new DataColumn("ObjectType", typeof(string)));
             dataTable.Columns.Add(new DataColumn("X", typeof(int)));
@@ -138,35 +138,139 @@ namespace Semester_2_POE_Part_1
             dataTable.Columns.Add(new DataColumn("MaxHealth", typeof(int)));
             dataTable.Columns.Add(new DataColumn("Gold", typeof(int)));
 
-            //hero
+            //add the dimensions of the map to the datatable
+            dataTable.Rows.Add("MapDimensions", gameMap.GetMapHeight(), gameMap.GetMapWidth(), -1, -1, -1); //since the map doesn't have all of the values, irrelevent ones are set to -1
+            //add the hero to the datatable
             dataTable.Rows.Add("Hero", gameMap.Heroprop.X, gameMap.Heroprop.Y, gameMap.Heroprop.HP, gameMap.Heroprop.MaxHp, gameMap.Heroprop.GoldPurse);
-            //enemies
+            //add the enemies to the datatable
             for (int i = 0; i < gameMap.GetEnemies().Length; i++)
             {
                 if (gameMap.GetEnemies()[i] is SwampCreature)
                 {
-                    dataTable.Rows.Add("SwampCreature", gameMap.GetEnemies()[i].X, gameMap.GetEnemies()[i].Y, gameMap.GetEnemies()[i].HP, gameMap.GetEnemies()[i].MaxHp, gameMap.GetEnemies()[i].GoldPurse);
+                    dataTable.Rows.Add("Swamp Creature", gameMap.GetEnemies()[i].X, gameMap.GetEnemies()[i].Y, gameMap.GetEnemies()[i].HP, gameMap.GetEnemies()[i].MaxHp, gameMap.GetEnemies()[i].GoldPurse);
                 }
                 else if (gameMap.GetEnemies()[i] is Mage)
                 {
                     dataTable.Rows.Add("Mage", gameMap.GetEnemies()[i].X, gameMap.GetEnemies()[i].Y, gameMap.GetEnemies()[i].HP, gameMap.GetEnemies()[i].MaxHp, gameMap.GetEnemies()[i].GoldPurse);
                 }
             }
-            //Items
+            //add the items to the datatable
             for (int i = 0; i < gameMap.Items.Length; i++)
             {
                 if (gameMap.Items[i] is Gold)
                 {
-                    dataTable.Rows.Add("Gold", gameMap.Items[i].X, gameMap.Items[i].Y, -1, -1, ((Gold)gameMap.Items[i]).GoldAmount);
+                    dataTable.Rows.Add("Gold", gameMap.Items[i].X, gameMap.Items[i].Y, -1, -1, ((Gold)gameMap.Items[i]).GoldAmount); //since gold does not have all of the values, irrelevant ones are set to -1
                 }
             }
-
+            //save dataset
             dataSet.WriteXml("Data.xml");
         }
 
-       public void LoadGame()
+        public void LoadGame()
         {
-            
+            DataSet loadSet = new DataSet();        //load dataset from saved file
+            loadSet.ReadXml("Data.xml");
+
+            foreach (DataRow row in loadSet.Tables[0].Rows)     //loop for each row in dataset
+            {
+                string objectType = (string)row["ObjectType"];      //set variables for each corresponding value in the dataset
+                int xPos = Convert.ToInt32(row["X"]);
+                int yPos = Convert.ToInt32(row["Y"]);
+                int hp = Convert.ToInt32(row["Health"]);
+                int maxHp = Convert.ToInt32(row["MaxHealth"]);
+                int gold = Convert.ToInt32(row["Gold"]);
+
+                switch (objectType)
+                {
+                    case "MapDimensions":
+                        gameMap = new Map(xPos, xPos, yPos, yPos, gameMap.GetEnemies().Length, gameMap.Items.Length);   //makes a new map according to the dimensions given from the savefile
+                        gameMap.Items = new Item[gameMap.Items.Length];     //make new item array
+                        Enemy[] tmp = new Enemy[gameMap.GetEnemies().Length];   //make new empty enemy array
+                        gameMap.SetEnemies(tmp);
+                        for (int x = 0; x < xPos; x++)      //creates obstacles on the edges of the map, as well as filling it with empty tiles
+                        {
+                            for (int y = 0; y < yPos; y++)
+                            {
+                                if (x == 0 || x == xPos - 1 || y == 0 || y == yPos - 1)
+                                {
+                                    gameMap.Mapprop[x, y] = new Obstacle(x, y, "X");
+                                }
+                                else
+                                {
+                                gameMap.Mapprop[x, y] = new EmptyTile(x, y, ". ");                                
+                                }
+                            }
+                        }
+                        break;
+                    case "Hero":
+                        Hero hero = new Hero(xPos, yPos,2, hp, maxHp, "H ") { GoldPurse = gold };
+                        gameMap.Heroprop = hero;
+                        gameMap.Mapprop[xPos, yPos] = hero;
+                        break;
+                    case "Mage":
+                        for (int i = 0; i < gameMap.GetEnemies().Length; i++)
+                        {
+                            if (gameMap.GetEnemies()[i] is null)
+                            {
+                                Mage mage = new Mage(xPos, yPos,5, hp, 5, "M ") { GoldPurse = gold };
+                                gameMap.GetEnemies()[i] = mage;
+                                gameMap.Mapprop[xPos, yPos] = mage;
+                                break;
+                            }
+                        }
+                        break;
+                    case "Swamp Creature":
+                        for (int i = 0; i < gameMap.GetEnemies().Length; i++)
+                        {
+                            if (gameMap.GetEnemies()[i] is null)
+                            {
+                                SwampCreature swampCreature = new SwampCreature(xPos, yPos, 1, hp, 10, "SC") {  GoldPurse = gold };
+                                gameMap.GetEnemies()[i] = swampCreature;
+                                gameMap.Mapprop[xPos, yPos] = swampCreature;
+                                break;
+                            }
+                        }
+                        break;
+                    case "Gold":
+                        Gold _gold = new Gold(xPos, yPos, "G ") { GoldAmount = gold };
+                        for (int i = 0; i < gameMap.Items.Length; i++)
+                        {
+                            if (gameMap.Items[i] is null)
+                            {
+                                gameMap.Items[i] = _gold;
+                                break;
+                            }
+                        }
+                        gameMap.Mapprop[xPos, yPos] = _gold;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            for(int i = 0; i < gameMap.GetEnemies().Length; i++)
+            {
+                if (gameMap.GetEnemies()[i] == null)
+                {
+                    Enemy[] aliveEnemies = new Enemy[i];
+
+                    for (int j = 0; j < aliveEnemies.Length; j++)
+                    {
+                        aliveEnemies[j] = gameMap.GetEnemies()[j];
+                    }
+
+                    gameMap.SetEnemies(aliveEnemies);
+
+                    break;
+                }
+            }
+
+            for (int i = 0; i < gameMap.GetEnemies().Length; i++)
+            {
+                gameMap.UpdateVision(gameMap.GetEnemies()[i]);
+            }
+
+            gameMap.UpdateVision(gameMap.Heroprop);
         }
 
 

@@ -9,24 +9,24 @@ using System.Xml.Serialization;
 
 namespace Semester_2_POE_Part_1
 {
-    [Serializable]
+
 
 
     internal class Map
     {
-        [XmlIgnoreAttribute]
+        
         private Tile[,] map;    //declarations for the Map class
-        [XmlIgnoreAttribute]
+        
         private int mapHeight;
-        [XmlIgnoreAttribute]
+        
         private int mapWidth;
-        [XmlIgnoreAttribute]
+        
         private Enemy[] enemies;
-        [XmlIgnoreAttribute]
+        
         private Hero hero;
-        [XmlIgnoreAttribute]
+        
         private Random random = new Random();
-        [XmlIgnoreAttribute]
+        
         private Item[] items;
         
 
@@ -45,10 +45,10 @@ namespace Semester_2_POE_Part_1
             return map[X, Y].Symbol;
         }
 
-        public Tile[,] GetMap()     //getter for the map
+        /*public Tile[,] GetMap()     //getter for the map
         {
             return map;
-        }
+        }*/
 
         public Enemy[] GetEnemies()     //getter for the enemies array
         {
@@ -62,7 +62,9 @@ namespace Semester_2_POE_Part_1
         }
 
         public Hero Heroprop { get { return hero; } set { hero = value; } }     
-        public Item[] Items { get { return items} set { items = value; } }
+        public Item[] Items { get { return items; } set { items = value; } }
+
+        public Tile[,] Mapprop { get { return map; } set { map = value; } }  
 
         public Map(int minHeight, int maxHeight, int minWidth, int maxWidth, int enemyNumber, int goldAmount)   //map constructor
         {

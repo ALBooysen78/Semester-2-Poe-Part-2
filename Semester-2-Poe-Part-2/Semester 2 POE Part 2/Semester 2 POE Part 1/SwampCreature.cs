@@ -13,6 +13,11 @@ namespace Semester_2_POE_Part_1
         {
             //swamp creature constructor
         }
+
+        public SwampCreature(int X, int Y, int DAMAGE, int HP, int MaxHP, string symbol) : base(X, Y, 1, HP, 10, "SC")
+        {
+
+        }
         public override movement ReturnMove(movement enemyMovementSwampCreature)
         {   //creating random enemy movement
 

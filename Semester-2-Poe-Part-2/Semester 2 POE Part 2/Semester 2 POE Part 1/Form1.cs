@@ -63,7 +63,7 @@ namespace Semester_2_POE_Part_1
                     EnemyStatsTextbox.Text += engine.getMap().GetEnemies()[SelectEnemyDropDownList.SelectedIndex].ToString();
                     if(engine.getMap().GetEnemies()[SelectEnemyDropDownList.SelectedIndex].isDead()== true)     //removes dead enemy symbols from the map and updates the map display
                     {
-                        engine.getMap().GetMap()[engine.getMap().GetEnemies()[SelectEnemyDropDownList.SelectedIndex].X, engine.getMap().GetEnemies()[SelectEnemyDropDownList.SelectedIndex].Y] = new EmptyTile(engine.getMap().GetEnemies()[SelectEnemyDropDownList.SelectedIndex].X, engine.getMap().GetEnemies()[SelectEnemyDropDownList.SelectedIndex].Y, ". ");
+                        engine.getMap().Mapprop[engine.getMap().GetEnemies()[SelectEnemyDropDownList.SelectedIndex].X, engine.getMap().GetEnemies()[SelectEnemyDropDownList.SelectedIndex].Y] = new EmptyTile(engine.getMap().GetEnemies()[SelectEnemyDropDownList.SelectedIndex].X, engine.getMap().GetEnemies()[SelectEnemyDropDownList.SelectedIndex].Y, ". ");
                         DisplayMap();
                         engine.getMap().UpdateVision(engine.getMap().Heroprop);
                         EnemyStatsTextbox.Text += "\nEnemy was killed";
@@ -114,9 +114,9 @@ namespace Semester_2_POE_Part_1
         private void upButton_Click(object sender, EventArgs e) //moves hero up 
         {
             engine.MovePlayer(Character.movement.up);
-            engine.MoveEnemies();
-            engine.EnemyAttacks();
-            RemoveEnemies();
+            engine.MoveEnemies();   //move enemies after hero
+            engine.EnemyAttacks();    //enemies attack after moving
+            RemoveEnemies();     //remove dead enemies from enemy array
             DisplayMap();
             EnemyDropdown();
 
@@ -125,9 +125,9 @@ namespace Semester_2_POE_Part_1
         private void downButton_Click(object sender, EventArgs e)   //moves hero down
         {
             engine.MovePlayer(Character.movement.down);
-            engine.MoveEnemies();
-            engine.EnemyAttacks();
-            RemoveEnemies();
+            engine.MoveEnemies();   //move enemies after hero
+            engine.EnemyAttacks();    //enemies attack after moving
+            RemoveEnemies();     //remove dead enemies from enemy array 
             DisplayMap();
             EnemyDropdown();
         }
@@ -135,18 +135,18 @@ namespace Semester_2_POE_Part_1
         private void rightButton_Click(object sender, EventArgs e)  //moves hero right
         {
             engine.MovePlayer(Character.movement.right);
-            engine.MoveEnemies();
-            engine.EnemyAttacks();
-            RemoveEnemies();
+            engine.MoveEnemies();   //move enemies after hero
+            engine.EnemyAttacks();    //enemies attack after moving
+            RemoveEnemies();     //remove dead enemies from enemy array
             DisplayMap();
             EnemyDropdown();
         }
         private void leftButton_Click(object sender, EventArgs e)   //moves hero left
         {
             engine.MovePlayer(Character.movement.left);
-            engine.MoveEnemies();
-            engine.EnemyAttacks();
-            RemoveEnemies();
+            engine.MoveEnemies();   //move enemies after hero
+            engine.EnemyAttacks();    //enemies attack after moving
+            RemoveEnemies();     //remove dead enemies from enemy array
             DisplayMap();
             EnemyDropdown();
         }
@@ -206,12 +206,32 @@ namespace Semester_2_POE_Part_1
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-
+            DialogResult result = MessageBox.Show("Would you like to save your current progress? Only one game can be saved at a time.", "Save Game?", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                engine.SaveGame();
+            }
+            
         }
 
         private void loadButton_Click(object sender, EventArgs e)
         {
+            DialogResult result = MessageBox.Show("Would you like to load a previous saved game? All current progress will be lost.", "Load Game?", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                engine.LoadGame();
+                DisplayMap();   //display map after loading
+                SelectEnemyDropDownList.Items.Clear();  //clear dropdown list
 
+                string[] entires = new string[engine.getMap().GetEnemies().Length];
+
+                for (int i = 0; i < entires.Length; i++) //drop down menu entries
+                {
+                    entires[i] = engine.getMap().GetEnemies()[i].ToString();
+                    SelectEnemyDropDownList.Items.Add(entires[i]); //adding entires to drop down menu
+                }
+            
+            }
         }
     }
 }
