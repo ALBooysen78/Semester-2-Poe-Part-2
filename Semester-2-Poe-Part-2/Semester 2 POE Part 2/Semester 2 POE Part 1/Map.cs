@@ -134,7 +134,7 @@ namespace Semester_2_POE_Part_1
                 case Tile.tileType.Hero:
                     return new Hero(X, Y, 2, 10, 10, "H");
                 case Tile.tileType.Enemy:
-                    int i = random.Next(0, 2);
+                    int i = random.Next(0, 2);      //randomises enemies between mage and swamp creature
                     if (i == 0)
                     {
                         return new SwampCreature(X, Y);
@@ -167,7 +167,7 @@ namespace Semester_2_POE_Part_1
             }
         }
 
-        public Item GetItemAtPosition(int x, int y)
+        public Item GetItemAtPosition(int x, int y)     //method to get items at a specific coordinate
         {
             for (int i = 0; i < items.Length; i++)
             {

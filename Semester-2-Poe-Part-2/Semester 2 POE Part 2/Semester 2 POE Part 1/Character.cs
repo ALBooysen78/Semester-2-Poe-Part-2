@@ -118,7 +118,7 @@ namespace Semester_2_POE_Part_1
            
         }
 
-        public void Pickup(Item i)
+        public void Pickup(Item i)  //method for picking up gold
         {
             if (i.ToString() == "Gold")
             {
