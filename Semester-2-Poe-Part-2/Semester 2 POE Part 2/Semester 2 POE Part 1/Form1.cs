@@ -91,14 +91,7 @@ namespace Semester_2_POE_Part_1
 
         private void SelectEnemy_SelectedIndexChanged(object sender, EventArgs e)
         {
-            EnemyStatsTextbox.Text = engine.getMap().GetEnemies()[SelectEnemyDropDownList.SelectedIndex].ToString();
-
-            //add iteams to the iteam array
-            //update ++ update on attack
-            //if (SelectEnemyDropDownList.Text == "Swamp Creature")
-            //{
-            //idk man f this
-            //}
+            EnemyStatsTextbox.Text = engine.getMap().GetEnemies()[SelectEnemyDropDownList.SelectedIndex].ToString();    //sets the enemy stats textbox to display the selected enemy's stats when they are clicked in the dropdown
         }
 
 
@@ -124,7 +117,6 @@ namespace Semester_2_POE_Part_1
             engine.MoveEnemies();
             engine.EnemyAttacks();
             RemoveEnemies();
-            //CheckEnemyStatus();
             DisplayMap();
             EnemyDropdown();
 
@@ -136,7 +128,6 @@ namespace Semester_2_POE_Part_1
             engine.MoveEnemies();
             engine.EnemyAttacks();
             RemoveEnemies();
-            //CheckEnemyStatus();
             DisplayMap();
             EnemyDropdown();
         }
@@ -147,7 +138,6 @@ namespace Semester_2_POE_Part_1
             engine.MoveEnemies();
             engine.EnemyAttacks();
             RemoveEnemies();
-            //CheckEnemyStatus();
             DisplayMap();
             EnemyDropdown();
         }
@@ -157,12 +147,11 @@ namespace Semester_2_POE_Part_1
             engine.MoveEnemies();
             engine.EnemyAttacks();
             RemoveEnemies();
-            //CheckEnemyStatus();
             DisplayMap();
             EnemyDropdown();
         }
 
-        private void EnemyDropdown()
+        private void EnemyDropdown() //renames enemy texts in the dropdown list to update their changing coordinates when they move
         {
            
             for (int i = 0; i < SelectEnemyDropDownList.Items.Count; i++) //drop down menu entries

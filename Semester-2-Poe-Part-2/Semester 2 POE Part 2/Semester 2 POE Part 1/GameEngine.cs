@@ -26,7 +26,7 @@ namespace Semester_2_POE_Part_1
                 
                 gameMap.GetMap()[gameMap.Heroprop.X, gameMap.Heroprop.Y] = new EmptyTile(gameMap.Heroprop.X, gameMap.Heroprop.Y, " . ");    //replace the hero's current poition on the map with an empty tile
                 gameMap.Heroprop.Move(move);    //move hero
-                if(gameMap.GetMap()[gameMap.Heroprop.X, gameMap.Heroprop.Y].Symbol == "G ")
+                if(gameMap.GetMap()[gameMap.Heroprop.X, gameMap.Heroprop.Y].Symbol == "G ") //allows the hero to pickup gold
                 {
                     Item i = gameMap.GetItemAtPosition(gameMap.Heroprop.X, gameMap.Heroprop.Y);
                     gameMap.Heroprop.Pickup(i);
@@ -35,7 +35,7 @@ namespace Semester_2_POE_Part_1
                 gameMap.UpdateVision(gameMap.Heroprop);
 
 
-                for (int i = 0; i < gameMap.GetEnemies().Length; i++)
+                for (int i = 0; i < gameMap.GetEnemies().Length; i++)   //updates enemy visions
                 {
                     gameMap.UpdateVision(gameMap.GetEnemies()[i]);
                 }
@@ -49,7 +49,7 @@ namespace Semester_2_POE_Part_1
             
         }
 
-        public void MoveEnemies()
+        public void MoveEnemies()   //method to move enemies
         {
 
 
@@ -59,7 +59,7 @@ namespace Semester_2_POE_Part_1
                            
                 gameMap.GetMap()[enemy.X, enemy.Y] = new EmptyTile(enemy.X, enemy.Y, " . ");    //replace the enemy's current poition on the map with an empty tile
                 enemy.Move(move);    //move enemy
-                if (gameMap.GetMap()[enemy.X, enemy.Y].Symbol == "G ")
+                if (gameMap.GetMap()[enemy.X, enemy.Y].Symbol == "G ")  
                 {
                     Item i = gameMap.GetItemAtPosition(enemy.X, enemy.Y);
                     enemy.Pickup(i);
@@ -78,43 +78,43 @@ namespace Semester_2_POE_Part_1
             }
         }
 
-        public void EnemyAttacks()
+        public void EnemyAttacks()  //method for enemy attacks
         { 
             foreach (var enemy in gameMap.GetEnemies())
             {
-                if (enemy.isDead() == true)
+                if (enemy.isDead() == true) //checks if the enemy is dead, so that they can't attack if so
                 {
                     continue;
                 }
-                if (enemy is SwampCreature)
+                if (enemy is SwampCreature)     //attacks if enemy is a swampcreature
                 {
                     for(int i = 0; i < enemy.VISION.Length; i++)
                     {
-                        if (enemy.VISION[i] is Hero)
+                        if (enemy.VISION[i] is Hero)    //attacks hero if he is close enough
                         {
                             enemy.Attack(gameMap.Heroprop);
                             break;
                         }
                     }
                 }
-                else if (enemy is Mage)
+                else if (enemy is Mage)     //attacks if enemy is a mage
                 {
                     for (int i = 0; i < gameMap.GetEnemies().Length; i++)
                     {
-                        if (enemy.CheckRange(gameMap.GetEnemies()[i]))
+                        if (enemy.CheckRange(gameMap.GetEnemies()[i]))      //mage attacks enemies ass well
                         {
                             enemy.Attack(gameMap.GetEnemies()[i]);
                             
                             if (gameMap.GetEnemies()[i].isDead() == true)
                             {
-                                gameMap.GetMap()[gameMap.GetEnemies()[i].X, gameMap.GetEnemies()[i].Y] = new EmptyTile(gameMap.GetEnemies()[i].X, gameMap.GetEnemies()[i].Y, ". ");
+                                gameMap.GetMap()[gameMap.GetEnemies()[i].X, gameMap.GetEnemies()[i].Y] = new EmptyTile(gameMap.GetEnemies()[i].X, gameMap.GetEnemies()[i].Y, ". ");     //removes dead enemies from the map 
                                 
                             }
                             
                         }
                     }
 
-                    if (enemy.CheckRange(gameMap.Heroprop))
+                    if (enemy.CheckRange(gameMap.Heroprop))     //attacks hero
                     {
                         enemy.Attack(gameMap.Heroprop);
                     }
