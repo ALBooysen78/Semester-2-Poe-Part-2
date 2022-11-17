@@ -95,7 +95,7 @@ namespace Semester_2_POE_Part_1
                         if (enemy.VISION[i] is Hero)    //attacks hero if he is close enough
                         {
                             enemy.Attack(gameMap.Heroprop);
-                            break;
+                            
                         }
                     }
                 }
