@@ -1,2 +1,2 @@
-# Semester-2-Poe-Part-1
-This is the first part of Semester two's POE. This is a version with basic hero movement and attacking.
+# Semester-2-Poe-Part-2
+This is the second part of Semester two's POE. This is an expanded version of Part 1 with more features.
